@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="techSrijan’22 techSrijan 22, Campus Ambassador, CA, Register, Campus, Ambassador, 22">
+    <meta name="Description" content="Register as a Campus Ambassador for techSrijan 22">
+    <meta name="theme-color" content="#103d87">
+
+    <title>techSrijan'22 CA</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/owl.carousel.css" />
+    <link type="text/css" rel="stylesheet" href="css/owl.theme.default.css" />
+    <link type="text/css" rel="stylesheet" href="css/magnific-popup.css" />
+    <link href="assets/icons/fa/css/all.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/build/style.css" />
+    <link type="text/css" rel="stylesheet" href="css/self.css" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/SB_LOGO-min.png" />
+    <!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Facebook login scripts -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="../www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="../cdn.jsdelivr.net/npm/js-cookie%402/src/js.cookie.min.js"></script>
+    <script>
+        // IF LOGGED IN (cookie found), REDIRECT TO DASH
+        const token = Cookies.get('x-auth-token');
+        if (token) document.location.replace('project.html');
+    </script>
+    <script src="../code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="../cdn.jsdelivr.net/npm/js-cookie%402/src/js.cookie.min.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="../www.gstatic.com/firebasejs/7.6.0/firebase.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCoqejFEzbSn3g2Eab6SEUW02UZQm6p6Z0",
+            authDomain: "techkriti-22.firebaseapp.com",
+            projectId: "techkriti-22",
+            storageBucket: "techkriti-22.appspot.com",
+            messagingSenderId: "849548325328",
+            appId: "1:849548325328:web:7e09d9c86139447216c9d5",
+            measurementId: "G-L47CW287Q2"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        firebase.auth();
+
+
+        //fb login
+        var provider = new firebase.auth.FacebookAuthProvider();
+        //provider.addScope('user_birthday');
+
+        // provider.setCustomParameters({
+        // 'display': 'popup'
+        // });
+        function login() {
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+                // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                var token = result.credential.accessToken;
+                var credential = firebase.auth.FacebookAuthProvider.credential(token);
+                //we send this token to our auth end point
+                var data = {
+                    token: token,
+                };
+                function sendPost() {
+                    $.ajax({
+                        url: '/auth/student/fblogin',
+                        method: 'POST',
+                        data: data,
+                        success: (data, status, jqXHR) => {
+                            // Save token cookie and redirect to dash
+                            Cookies.set('x-auth-token', jqXHR.getResponseHeader('x-auth-token'), {
+                                expires: 1 / 48 // expires in 30 minutes
+                            });
+                            document.location.replace('project.html');
+                        },
+                        error: jqXHR => alert(jqXHR.responseText)
+                    });
+
+                }
+
+                sendPost();
+
+                // The signed-in user info.
+                var user = result.user;
+                // ...
+            }).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+                console.log(error);
+            });
+
+        }
+    </script>
+</head>
+
+<body>
+    <header id="home">
+        <div class="bg-img" style="background-image: url('assets/images/flicker.jpg'); object-fit:contain;">
+            <div class="overlay" style="opacity:0.5;"></div>
+            <p class="white-text late-display home-bottom" style="display: none;z-index: 1;">Team for Autonomous
+                Robotics</p>
+        </div>
+        <nav id="nav" class="navbar nav-transparent">
+            <div id="nav-container" class="container">
+                <div class="navbar-header">
+                    <!-- div class="navbar-brand">
+						<a href="#">
+							<img class="logo" src="img/era-logo.png" alt="logo">
+							<img class="logo-alt" src="img/era-logo-alt.png" alt="logo">
+						</a>
+					</div-->
+                    <div class="navbar-text-header">
+                        CA techSrijan'22
+                    </div>
+                    <span id="data-x03" ></span>
+                    <div class="nav-collapse">
+                        <span></span>
+                    </div>
+                </div>
+                <ul class="main-nav nav navbar-nav navbar-right">
+                    <!-- <li><a href="http://1stop.ai/" target="_blank">1stop AI</a></li> -->
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about_us">About Us</a></li>
+                    <li><a href="#why_ca">Why CA?</a></li>
+                    <li><a href="#responsibilities">Responsibilities</a></li>
+                    <!--ul class ="dropdown">
+							<li><a href="#team">Hall of fame</a></li>
+							<li><a href="#team">Current Members</a></li>
+						</ul-->
+                    <li><a href="#incentives">Incentives</a></li>
+                    <li><a href="#registration">Registration</a></li>
+                    <li><a href="#contact_us">Contact Us</a></li>
+                    <!-- <li><button onclick="login()" class="loginBtn loginBtn--facebook">Click here to login</button></li> -->
+                </ul>
+            </div>
+
+            <div id="fixed-side-links" class="social-box">
+                <a href="#"><i class="fab fa-facebook-square"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-twitter-square"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </nav>
+        <div class="home-wrapper">
+            <div class="container" style="display: flex; flex-direction: column; justify-items: center;">
+                <div class="row m-10">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="home-content">
+                            <div id="header-img">
+                                <img src="assets/images/SB_LOGO-min.png" alt="CAMPUS AMBASSADOR" />
+                            </div>
+                            <!-- <p class="white-text">Represent your college in <br /><span style="font-size: 18px"> Asia's
+                                    Largest Technical and Entrepreneurial Festival</span></p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="white-text" style="padding: 25px;">Represent your college in <br /><span
+                            style="font-size: 18px">
+                            Largest Technical Festival of MMMUT, Gorakhpur</span></p>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <button onclick="login()" class="loginBtn loginBtn--facebook">Click here to login</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="section md-padding bg-grey" id="about_us">
+        <div class="container">
+            <div class="row">
+                <div class="section-header text-center">
+                    <h2 class="title">About Us</h2>
+                </div>
+                <div class="section-desc">techSrijan is the annual inter-collegiate Technical and Entrepreneurship
+                    festival organized by the students of MMMUT Gorakhpur. techSrijan is a non-profit organization which was
+                    launched in 1995 with the aim of developing interest and encouraging innovation in technology among
+                    students of India. Madan Mohan Malaviya University of technology, widely celebrated as a centre of academic
+                    excellence, is proud to announce the 28th edition of its Technological and Entrepreneurial Festival,
+                    techSrijan. Over time, techSrijan has firmly established its reputation as one of the largest
+                    technical festivals in Asia, igniting the passion within budding individuals and providing a
+                    platform for them to showcase their skills. Innovation and perseverance form the forefront of this
+                    blockbuster event, with social welfare also getting the importance it deserves. Every year we impute
+                    ambassadors from different colleges throughout the country, whose main responsibility is to
+                    publicize techSrijan, in and out of his/her college, while giving them the opportunity to develop
+                    their organizational and management skills.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="why_ca" class="section sm-padding">
+        <div class="container">
+            <div class="row">
+                <div class="section-header text-center">
+                    <h2 class="title">Why CA?</h2>
+                </div>
+                <div class="section-desc">
+                    <p>Golden opportunity to witness the grandeur of techSrijan in one of the most renowned and
+                        prestigious institutions of the country, MMMUT,Gorakhpur</p>
+                    <p>Excellent platform to sharpen your Communication and Technical skills</p>
+                    <p>Be a part of national level event promotion and brand management</p>
+                    <p>Chance to organize National Level Competitions in your college</p>
+                    <p>Form a valuable network with thousands of brilliant like-minded students from all across the
+                        country</p>
+                    <p>An easy way to get acquainted with ever-changing trends of the Technical and Entrepreneurial
+                        World</p>
+                    <p>Opportunity to keep abreast with cutting - edge technologies from MMMUT,Gorakhpur</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="responsibilities" class="section sm-padding bg-grey">
+        <div class="container">
+            <div class="row">
+                <div class="section-header text-center">
+                    <h2 class="title">Responsibilities</h2>
+                </div>
+                <div class="section-desc">
+                    <div class="row">
+                        <div class="subheader">
+                            <i class="fas fa-user-tie"></i>
+                            <h4> Coordination </h4>
+                        </div>
+                        <div class="content">
+                            <ul>
+                                <li>The responsibilities of CAs include coordinating with the various participating
+                                    colleges </li>
+                                <li>With the help of techSrijan, CAs organize workshops and events in their respective
+                                    colleges</li>
+                                <li>They are thus the point of contact between techSrijan and respective college
+                                    administrations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="subheader">
+                            <i class="fas fa-fire"></i>
+                            <h4> College Publicity</h4>
+                        </div>
+                        <div class="content">
+                            <ul>
+                                <li> A campus ambassador also helps in publicising techSrijan, and ensuring participation
+                                    of the respective campus community </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="subheader">
+                            <i class="fas fa-share-alt"></i>
+                            <h4> On Social Media </h4>
+                        </div>
+                        <div class="content">
+                            <ul>
+                                <li> CAs also have to promote techSrijan through the social media platform by publicizing
+                                    its events on various social media channels like Facebook, Twitter, Instagram, etc.
+                                    utilising their social media network for the growth of techSrijan 22 </li>
+                                <li> Occasionally, based on the skills provided in the registration form, some festival
+                                    tasks may be assigned to the CAs </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="subheader">
+                            <i class="fas fa-blog"></i>
+                            <h4> Through Blogs </h4>
+                        </div>
+                        <div class="content">
+                            <ul>
+                                <li> A campus ambassador also improves his/her writing skills through our blog series,
+                                    in which he/she may give thoughts about anything for publishing on techSrijan
+                                    official Facebook, Instagram, Twitter, and other social media apps.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="incentives" class="section sm-padding bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="section-header text-center">
+                    <h2 class="title">Rewards and Incentives</h2>
+                </div>
+                <div class="section-desc">
+                    <div id="incentive-boxes">
+                        <div class="incentive-box"><i class="fas fa-certificate" aria-hidden="true"></i>A Certificate of
+                            Appreciation undersigned by techSrijan’22 MMMUT, Gorakhpur to top 100 CA's</div>
+                        <!--div class="incentive-box"><i class="fas fa-gifts" aria-hidden="true"></i>Frequent Opportunities to win techSrijan’20 goodies and also e-goodies</div-->
+                        <div class="incentive-box"><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>Top
+                            Ambassadors will get a chance to attend Workshops at techSrijan’22 MMMUT, Gorakhpur</div>
+                        <!--div class="incentive-box"><i class="fas fa-plane" aria-hidden="true"></i>A chance to attend the Boeing Workshop Organised by Boeing at MMMUT,Gorakhpur</div-->
+                        <div class="incentive-box"><i class="fas fa-award" aria-hidden="true"></i>Top campus ambassadors
+                            will be felicitated with Special Appreciation Award</div>
+                        <div class="incentive-box"><i class="fas fa-file-signature" aria-hidden="true"></i>Recognition
+                            in the form of name integration on the techSrijan’22 Website</div>
+                        <div class="incentive-box"><i class="fab fa-facebook" aria-hidden="true"></i>Get to become a
+                            part of Campus Ambassador diaries through techSrijan Facebook Page</div>
+                        <!--div class="incentive-box"><i class="fas fa-ticket-alt" aria-hidden="true"></i>Few Top Ambassadors will be given free passes to Techkriti'20 MMMUT,Gorakhpur</div-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="registration" class="section sm-padding bg-grey">
+        <div class="container">
+            <div class="row">
+                <div class="section-header text-center">
+                    <h2 class="title">Registration</h2>
+                </div>
+                <div class="section-desc">
+                    <h4>Registration Process</h4>
+                    The campus ambassador program has been posted on Internshala and can be applied on the given link.
+                    After applying from internshala, you will have a telephonic session which will inform you of your
+                    responsibilities to a greater depth.
+                    <h4>Eligibility</h4>
+                    The only eligibility criteria is that you should have a valid college ID card. There are no specific
+                    constraints on year in which you
+                    study, if you are a resourceful person it will surely add up
+                    your chances to be one of the top campus ambassadors.
+                    <div class="btn-space">
+                        <button onclick="login()" class="loginBtn loginBtn--facebook">Click here to login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="contact_us" class="sm-padding" style="width: 100vw; padding-top: 20vh; padding-bottom: 20vh;">
+        <div class="container">
+            <div class="row">
+                <div class="section-header text-center">
+                    <h2 class="title">Get In Touch</h2>
+                </div>
+                <div style="width: 100%; display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+
+
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="#" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i
+                                                class="fab fa-facebook-square"></i></a>
+                                        <a href="#"><i
+                                                class="fab fa-linkedin"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Shreyas Sharma</h3>
+                                <span>President, IEEE SB MMMUT</span><br />
+                                <span>+91-8787878787</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="#" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i
+                                                class="fab fa-facebook-square"></i></a>
+                                        <a href="#"><i
+                                                class="fab fa-linkedin"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Aditya Kumar</h3>
+                                <span>Head</span><br />
+                                <span>+91-9999999999</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="#" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i
+                                                class="fab fa-facebook-square"></i></a>
+                                        <a href="#"><i
+                                                class="fab fa-linkedin"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Nimish </h3>
+                                <span>Member</span><br />
+                                <span>+91-8888999966</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="#" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i
+                                                class="fab fa-facebook-square"></i></a>
+                                        <a href="#"><i
+                                                class="fab fa-linkedin"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Sanskar</h3>
+                                <span>Member</span><br />
+                                <span>+91-9933993333</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="team">
+                            <div class="team-img">
+                                <img class="img-responsive" src="#" alt="">
+                                <div class="overlay">
+                                    <div class="team-social">
+                                        <a href="#"><i
+                                                class="fab fa-facebook-square"></i></a>
+                                        <a href="#"><i
+                                                class="fab fa-linkedin"></i></a>
+                                        <a href="#"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h3>Ishika</h3>
+                                <span>Member</span><br />
+                                <span>+91-9898989898</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+                        <div class="col-sm-4">
+                            <div class="team">
+                                <div class="team-img">
+                                    <img class="img-responsive" src="#" alt="">
+                                    <div class="overlay">
+                                        <div class="team-social">
+                                            <a href="#"><i
+                                                    class="fab fa-facebook-square"></i></a>
+                                            <a href="#"><i
+                                                    class="fab fa-linkedin"></i></a>
+                                            <a href="#"><i class="fas fa-envelope"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h3>Aman</h3>
+                                    <span>Member</span><br />
+                                    <span>+91-8888888899</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="team">
+                                <div class="team-img">
+                                    <img class="img-responsive" src="#" alt="">
+                                    <div class="overlay">
+                                        <div class="team-social">
+                                            <a href="#"><i
+                                                    class="fab fa-facebook-square"></i></a>
+                                            <a href="#"><i
+                                                    class="fab fa-linkedin"></i></a>
+                                            <a href="#"><i class="fas fa-envelope"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h3>Mandavi</h3>
+                                    <span>Member</span><br />
+                                    <span>+91-9999888899</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                                <div class="team">
+                                    <div class="team-img">
+                                        <img class="img-responsive" src="assets/images/AvinashTakhar.jpeg" alt="">
+                                        <div class="overlay">
+                                            <div class="team-social">
+                                                <a href="https://www.facebook.com/avinash.choudhary.77770194/"><i
+                                                    class="fab fa-facebook-square"></i></a>
+                                                    <a href="https://www.linkedin.com/in/avinash-takhar-b3b22b199/"><i
+                                                        class="fab fa-linkedin"></i></a>
+                                                        <a href="mailto:hospitality@techkriti.org"><i class="fas fa-envelope"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="team-content">
+                                                <h3>Avinash Takhar</h3>
+                                                <span>Hospitality Coordinator</span><br />
+                                                <span>+91-6377816386</span>
+                                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- </div>
+                <div class="col-sm-4">
+                    <div class="team">
+                        <div class="team-img">
+                            <img class="img-responsive" src="assets/images/Valiveti Gnaneswar.jpg" alt="">
+                            <div class="overlay">
+                                <div class="team-social">
+                                    <a href="https://m.facebook.com/gnaneswar.valiveti"><i
+                                            class="fab fa-facebook-square"></i></a>
+                                    <a href="mailto:hospitality@techkriti.org"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <h3>Gnaneswar Valiveti</h3>
+                            <span>Hospitality Coordinator</span><br />
+                            <span>+91-7075430020</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team">
+                        <div class="team-img">
+                            <img class="img-responsive" src="assets/images/Ashish_Rawat.jpg" alt="">
+                            <div class="overlay">
+                                <div class="team-social">
+                                    <a href="https://www.facebook.com/0ASHRAW0"><i
+                                            class="fab fa-facebook-square"></i></a>
+                                    <a href="mailto:hospitality@techkriti.org"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <h3>Ashish Rawat</h3>
+                            <span>Hospitality Coordinator</span><br />
+                            <span>+91-8279800423</span>
+                        </div>
+                    </div>
+                </div> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="back-to-top"><i class="fas fa-arrow-up"></i></div>
+    <div id="preloader" style="background: #000;">
+        <div class="preloader" style="background: #000;">
+            <img src="assets/svg/preloader-fast.svg" alt="" style="width:280px;" />
+        </div>
+    </div>
+    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
